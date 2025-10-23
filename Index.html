@@ -1,0 +1,757 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Besitos de Oreiro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff8f0 0%, #f9f4ff 100%);
+            color: #5a4a42;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Dancing Script', cursive;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #ffd6e7 0%, #d6f4ff 100%);
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(255, 182, 193, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 2.8rem;
+            color: #e75480;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .kiss-icon {
+            width: 32px;
+            height: 32px;
+            display: inline-block;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23e75480"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .logo span {
+            color: #4a90e2;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px 0;
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #f8c3cd;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .nav-tab {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #ffe6f2 0%, #e6f7ff 100%);
+            border: 2px solid #f8c3cd;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: #8b4513;
+        }
+
+        .nav-tab:hover,
+        .nav-tab.active {
+            background: linear-gradient(135deg, #ff9ec7 0%, #87cefa 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 158, 199, 0.4);
+        }
+
+        /* Sections */
+        section {
+            padding: 60px 0;
+            display: none;
+        }
+
+        section.active {
+            display: block;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #8b4513;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(231, 84, 128, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(231, 84, 128, 0.3);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #ffe6f2 0%, #e6f7ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #e75480;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #8b4513;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            color: #e75480;
+            font-weight: 600;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .social-links {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.2);
+        }
+
+        .social-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 15px;
+            transition: background 0.3s ease;
+        }
+
+        .social-item:hover {
+            background: #fff8f0;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .facebook { background: #3b5998; }
+        .instagram { background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d); }
+        .whatsapp { background: #25D366; }
+        .gmail { background: #D44638; }
+
+        .social-text {
+            font-weight: 500;
+            color: #5a4a42;
+        }
+
+        .map-container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.2);
+            height: 400px;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+        }
+
+        /* About Section */
+        .about-content {
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.2);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Contact Form */
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #8b4513;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #f8c3cd;
+            border-radius: 15px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #e75480;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #e75480 0%, #8b4513 100%);
+            color: white;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(231, 84, 128, 0.4);
+        }
+
+        /* Payment Methods */
+        .payment-section {
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.2);
+            text-align: center;
+        }
+
+        .payment-title {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #8b4513;
+        }
+
+        .payment-icons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .payment-icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff8f0;
+            border-radius: 20px;
+            font-size: 2rem;
+            color: #8b4513;
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #8b4513 0%, #5a4a42 100%);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 60px;
+        }
+
+        .copyright {
+            font-size: 1.1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .kiss-icon-footer {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .designer {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-tab {
+                width: 90%;
+                text-align: center;
+            }
+            
+            .kiss-icon {
+                width: 24px;
+                height: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <h1 class="logo">Besitos de Oreiro<img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d3503d2d-aaa1-4fac-8b4b-ad17563329c7/d7e8gw4-afaa707c-4bf6-451e-a047-2497e0b9a5f1.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi9kMzUwM2QyZC1hYWExLTRmYWMtOGI0Yi1hZDE3NTYzMzI5YzcvZDdlOGd3NC1hZmFhNzA3Yy00YmY2LTQ1MWUtYTA0Ny0yNDk3ZTBiOWE1ZjEucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.gvr93edooaR69A0KE6sMkD64rZiwrq48al_Bt_TNUFU" style="width: 100px; height: 80px;"></h1>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-tabs">
+                <div class="nav-tab active" data-section="bolsos">Bolsos</div>
+                <div class="nav-tab" data-section="mochilas">Mochilas</div>
+                <div class="nav-tab" data-section="morrales">Morrales</div>
+                <div class="nav-tab" data-section="rinoneras">Riñoneras</div>
+                <div class="nav-tab" data-section="contacto">Contacto</div>
+                <div class="nav-tab" data-section="nosotros">Sobre Nosotros</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Bolsos Section -->
+    <section id="bolsos" class="active">
+        <div class="container">
+            <h2 class="section-title">Bolsos Playeros</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://scontent.cdninstagram.com/v/t51.82787-15/564126745_17845943649587789_7937752668344551350_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ig_cache_key=Mzc0MzQxODA1NTE2NzkwNDQ5MA%3D%3D.3-ccb1-7&ccb=1-7&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEyMDR4MTYwMS5zZHIuQzMifQ%3D%3D&_nc_ohc=y6KSedvYAqsQ7kNvwGpYPzv&_nc_oc=Adn1stX1pF2j9LzHzDsKMxxB1uNvGgyfsljv0lxlRpA9lQZxiiyn7IwmYbMhHlTBMSMRYIixaawIkCegJ3FVz2SU&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=qM0PQdFotDmQrqb6Tgvqqg&oh=00_AfcKfymlPPP_DihbO1x1YyExaqBebCgK5XdvcuugGqzpBQ&oe=69001188" alt="Bolso Playero" style="width: 245px; height: 245px;">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Bolso Playero</h3>
+                        <p class="product-price">$21.000</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://scontent.cdninstagram.com/v/t51.82787-15/564907658_17845943658587789_8065526085790266453_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=102&ig_cache_key=Mzc0MzQxODA1NTE2Nzk1MzQ4MA%3D%3D.3-ccb1-7&ccb=1-7&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEyMDR4MTYwMS5zZHIuQzMifQ%3D%3D&_nc_ohc=pzQpQa9Z2qQQ7kNvwGixYVd&_nc_oc=Adk_Dr3cqOARCk3knQpW2On8sBqrzV4L13MsWe8haxkF3dlkr8P1l77kBkY14p5o4ehUMdtCXd3CKBQs_Vx6xxYI&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=qM0PQdFotDmQrqb6Tgvqqg&oh=00_AfewnJia4nm4hzZ5ebOC57-vYhHcPxwwqPTN6DXP_nVSdw&oe=690029D4" alt="Bolso Playero" style="width: 245px; height: 245px;">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Bolso Playero</h3>
+                        <p class="product-price">$21.000</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://scontent.cdninstagram.com/v/t51.82787-15/563220336_17845943667587789_5727073686379572620_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=109&ig_cache_key=Mzc0MzQxODA1NTE2NzkwNjU1NQ%3D%3D.3-ccb1-7&ccb=1-7&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEyMDR4MTYwMS5zZHIuQzMifQ%3D%3D&_nc_ohc=Pa0RvInxoFQQ7kNvwHCjGfg&_nc_oc=Adm93ZZ6syBU6o4GTIfcCdJhCIQuBmFItxXJ85m1vAIOLsPlvsHtAnaiO0cv8o7D8kZ9sTIrsi3eGAeRKWQexohI&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=qM0PQdFotDmQrqb6Tgvqqg&oh=00_AfeUN_Aamb6clCePItNd0FHvPb7DTKlhzlx5zOhmAwdFAA&oe=690003E8" alt="Bolso Playero" style="width: 245px; height: 245px;">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Bolso Playero</h3>
+                        <p class="product-price">$21.000</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://http2.mlstatic.com/storage/mobile-on-demand-resources/image/web-private-nav-mp-logo_1X?updatedAt=1746639317789"  style="width: 245px; height: 245px;">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Bolso Playero</h3>
+                        <p class="product-price">$21.000</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mochilas Section -->
+    <section id="mochilas">
+        <div class="container">
+            <h2 class="section-title">Mochilas </h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://scontent.cdninstagram.com/v/t51.82787-15/565047836_17845944525587789_1023964196888989683_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=104&ig_cache_key=Mzc0MzQyMjc1NzI1OTU0ODg5OQ%3D%3D.3-ccb1-7&ccb=1-7&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTkxNS5zZHIuQzMifQ%3D%3D&_nc_ohc=y4fY0w26wNgQ7kNvwGl8K0r&_nc_oc=AdkPZOrxkru6Ml10JnB754Phs11fO9A69ptjPrVhcnnn3iCaR9fFWl2l0ejxv4W2oxvRR-Tpdz7vtrFMgU-TcyOb&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=4HXQjiOCrPnZcAU1RGM4NQ&oh=00_AfdLnJepcbvKvoxIBn-kKFkNWBafbQGO1tqLdgiFJOZm2A&oe=69002A3D" alt="Mochila Oreiro" style="width: 247px; height: 247px;">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Mochila Oreiro</h3>
+                        <p class="product-price">$45.090</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://http2.mlstatic.com/storage/mobile-on-demand-resources/image/web-private-nav-mp-logo_1X?updatedAt=1746639317789" style="width: 245px; height: 245px;">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Mochila</h3>
+                        <p class="product-price">$45.090</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://http2.mlstatic.com/storage/mobile-on-demand-resources/image/web-private-nav-mp-logo_1X?updatedAt=1746639317789"  style="width: 247px; height: 247px;">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Mochila</h3>
+                        <p class="product-price">$45.090</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://http2.mlstatic.com/storage/mobile-on-demand-resources/image/web-private-nav-mp-logo_1X?updatedAt=1746639317789" style="width: 247px; height: 247px;">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Mochila</h3>
+                        <p class="product-price">$45.090</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Morrales Section -->
+    <section id="morrales">
+        <div class="container">
+            <h2 class="section-title">Morrales </h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://scontent.cdninstagram.com/v/t51.82787-15/563598092_17845943811587789_5952359957935598834_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=101&ig_cache_key=Mzc0MzQyMDIxMzk1OTQwNjg5Nw%3D%3D.3-ccb1-7&ccb=1-7&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEyMDR4MTYwMS5zZHIuQzMifQ%3D%3D&_nc_ohc=SyoQeTv3UpkQ7kNvwH5dVmL&_nc_oc=AdlQqv5yzZCkVJzGQ5ySv5gyBajLqMGR-sIzRtwqDjOLEIV3vd8sKldEgWbgV9gQeq0xwTniQH89-Eq9ufcVOQEl&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=m4nxlvsdMO3yZBrcO28obw&oh=00_Afe1XCnCDu-pFuD4BcC41XqPszlTU6ckbUR7kp3gbcdNyA&oe=69002D12" alt="Morrales" style="width: 247px; height: 247px;">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Morrales</h3>
+                        <p class="product-price">$31.890</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://scontent.cdninstagram.com/v/t51.82787-15/564925024_17845943820587789_1828607822645426866_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=102&ig_cache_key=Mzc0MzQyMDIxMzk3NjE5NDg4MQ%3D%3D.3-ccb1-7&ccb=1-7&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEyMDB4MTU5NS5zZHIuQzMifQ%3D%3D&_nc_ohc=3TZ-kLyUN2sQ7kNvwFRYJc-&_nc_oc=AdnNtOaMviVbHU9sad_sEtSjoEvh9KUhtDzhbZdWbctMVisN9Xia8n4QY-uTlHuB7vCCVYfAqfvsAFzTAbkhTxaT&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=m4nxlvsdMO3yZBrcO28obw&oh=00_AfdiJ20qep9Y3QaUxQorUAOTzV3i799mch2M-7Dgem_2uQ&oe=69001804" alt="Morrales"https://http2.mlstatic.com/storage/mobile-on-demand-resources/image/web-private-nav-mp-logo_1X?updatedAt=1746639317789" alt="Mercado Pago64910476_2316274105474026_1599411471338044181_n.jpg?stp=dst-jpg_e15_tt6&_nc_ht=instagram.faep9-2.fna.fbcdn.net&_nc_cat=106&_nc_oc=Q6cZ2QGarO2o1Re34bUsEjEqwDMTg1-hHaHcFwpSkYT0DBtLiPkFltTa4Wtp_FfhwMODOfAZlu4lr4f156tYSQv0TKfo&_nc_ohc=3cjeZ4EYvMMQ7kNvwE10BjX&_nc_gid=bqdO_8NvY8jv18fSgLGkxQ&edm=APU89FABAAAA&ccb=7-5&oh=00_Afd7lKGPMSKtN0jeDLzkaleV-aJIsfVwk_vZ4AXaDxRcoA&oe=69003163&_nc_sid=bc0c2c" style="width: 245px; height: 245px;">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Morrales</h3>
+                        <p class="product-price">$31.890</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://http2.mlstatic.com/storage/mobile-on-demand-resources/image/web-private-nav-mp-logo_1X?updatedAt=1746639317789"  style="width: 245px; height: 245px;">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Morrales</h3>
+                        <p class="product-price">$10.999</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Riñoneras Section -->
+    <section id="rinoneras">
+        <div class="container">
+            <h2 class="section-title">Riñoneras </h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://scontent.cdninstagram.com/v/t51.82787-15/564735556_17845944303587789_588416973842966554_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=109&ig_cache_key=Mzc0MzQyMTA5NzAyODIyMTk4Mg%3D%3D.3-ccb1-7&ccb=1-7&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTkxNS5zZHIuQzMifQ%3D%3D&_nc_ohc=Xw9jMTPWtfQQ7kNvwFz-4Oq&_nc_oc=Adl_mWPCQLjeA-p4uygpKAl1f5QT7CLvAXaGpxrNluvxuc1crZ8ez3MrtnQFLXeeSUKGMVT7YETiK9K_tGS-IDsc&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=EHLKsYfy_KhFBDo_JYfRFg&oh=00_AfeT8Ch_yOnyBzA1pmD6DRVscxjKU5LjRl6F4esTg9Z-2A&oe=69002EA3"  style="width: 245px; height: 245px;">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Riñonera</h3>
+                        <p class="product-price">$32.990</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://http2.mlstatic.com/storage/mobile-on-demand-resources/image/web-private-nav-mp-logo_1X?updatedAt=1746639317789"  style="width: 245px; height: 245px;">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Riñonera</h3>
+                        <p class="product-price">$32.990</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://http2.mlstatic.com/storage/mobile-on-demand-resources/image/web-private-nav-mp-logo_1X?updatedAt=1746639317789"  style="width: 245px; height: 245px;">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Riñonera</h3>
+                        <p class="product-price">$32.990</p>
+                    </div>
+                </div>
+               <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://http2.mlstatic.com/storage/mobile-on-demand-resources/image/web-private-nav-mp-logo_1X?updatedAt=1746639317789"  style="width: 245px; height: 245px;">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Riñonera</h3>
+                        <p class="product-price">$32.990</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto Section -->
+    <section id="contacto">
+        <div class="container">
+            <h2 class="section-title">Contáctanos </h2>
+            <div class="contact-container">
+                <div class="social-links">
+                    <h3 style="text-align: center; margin-bottom: 25px; color: #8b4513;">Nuestras Redes Sociales</h3>
+                    <div class="social-item">
+                        <div class="social-icon facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </div>
+                        <div class="social-text">Instagram: besitosdeoreiro.ok</div>
+                    </div>
+                    <div class="social-item">
+                        <div class="social-icon instagram">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <div class="social-text">Cuenta Respaldo: tu.nuevoestilo.ok</div>
+                    </div>
+                    <div class="social-item">
+                        <div class="social-icon whatsapp">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="social-text">WhatsApp: +54 9 11 25732210</div>
+                    </div>
+                    <div class="social-item">
+                        <div class="social-icon gmail">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="social-text">Email: sebasmxpx@gmail.com</div>
+                    </div>
+                </div>
+                <div class="map-container">
+                    <div id="map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3281.973365856433!2d-58.515330924509776!3d-34.65537556022769!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzTCsDM5JzE5LjQiUyA1OMKwMzAnNDUuOSJX!5e0!3m2!1ses!2sar!4v1761239299176!5m2!1ses!2sar" width="100%" height="100%" style="border:0; border-radius: 15px;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-container" style="margin-top: 50px;">
+                <h3 style="text-align: center; margin-bottom: 25px; color: #8b4513;">Envíanos tu Consulta</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="nombre">Nombre y Apellido *</label>
+                        <input type="text" id="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono *</label>
+                        <input type="tel" id="telefono" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="consulta">Consulta *</label>
+                        <textarea id="consulta" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Enviar Mensaje 💕</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre Nosotros Section -->
+    <section id="nosotros">
+        <div class="container">
+            <h2 class="section-title">Sobre Nosotros</h2>
+            <div class="about-content">
+                <p>¡Hola! Somos <strong>Besitos de Oreiro</strong>, tu boutique online especializada en accesorios femeninos con estilo y elegancia. </p>
+                <br>
+                <p>Nos apasiona crear piezas únicas que combinen la delicadeza de los colores pasteles con la calidad y durabilidad que mereces. Cada bolso, mochila y cartera es seleccionado cuidadosamente para que te sientas especial en cada momento.</p>
+                <br>
+                <p>Nuestro compromiso es brindarte productos de alta calidad, atención personalizada y una experiencia de compra que te haga sonreír. 💕</p>
+                <br>
+                <p>¡Gracias por elegirnos para acompañarte en tus momentos especiales!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Methods Section -->
+    <div class="container" style="padding: 40px 0;">
+        <div class="payment-section">
+            <h3 class="payment-title">Métodos de Pago y Envíos</h3>
+            <p style="margin-bottom: 30px; font-size: 1.1rem;">Aceptamos todas las formas de pago y ofrecemos envíos a todo el país</p>
+            <div class="payment-icons">
+                <div class="payment-icon">
+                    <i class="fab fa-cc-visa" style="color: #1a1f71;"></i>
+                </div>
+                <div class="payment-icon">
+                    <i class="fab fa-cc-mastercard" style="color: #eb001b;"></i>
+                </div>
+                <div class="payment-icon">
+                    <img src="https://http2.mlstatic.com/storage/mobile-on-demand-resources/image/web-private-nav-mp-logo_1X?updatedAt=1746639317789" alt="Mercado Pago" style="width: 60px; height: auto;">
+                </div>
+                <div class="payment-icon">
+                    <i class="fas fa-shipping-fast" style="color: #8b4513;"></i>
+                </div>
+                <div class="payment-icon">
+                    <i class="fas fa-store" style="color: #8b4513;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="copyright">© 2024 Besitos de Oreiro<img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d3503d2d-aaa1-4fac-8b4b-ad17563329c7/d7e8gw4-afaa707c-4bf6-451e-a047-2497e0b9a5f1.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi9kMzUwM2QyZC1hYWExLTRmYWMtOGI0Yi1hZDE3NTYzMzI5YzcvZDdlOGd3NC1hZmFhNzA3Yy00YmY2LTQ1MWUtYTA0Ny0yNDk3ZTBiOWE1ZjEucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.gvr93edooaR69A0KE6sMkD64rZiwrq48al_Bt_TNUFU" style="width: 40px; height: 32px;"></p>
+            <p class="designer">Web Designer: Zebastian Pazos</p>
+        </div>
+    </footer>
+
+      </script>
+<script>
+    // Navigation functionality
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            // Remove active class from all tabs and sections
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+            // Add active class to clicked tab
+            this.classList.add('active');
+            // Show corresponding section
+            const sectionId = this.getAttribute('data-section');
+            document.getElementById(sectionId).classList.add('active');
+        });
+    });
+
+    // Form submission
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('¡Gracias por tu mensaje! Pronto nos pondremos en contacto con vos. 💕');
+        this.reset();
+    });
+
+    // Agregar funcionalidad para abrir imágenes en nueva pestaña
+    document.querySelectorAll('.product-card .product-image img').forEach(img => {
+        img.style.cursor = 'pointer';
+        img.addEventListener('click', function() {
+            const imageUrl = this.src;
+            window.open(imageUrl, '_blank');
+        });
+    });
+</script>
+
+</body>
+</html>
